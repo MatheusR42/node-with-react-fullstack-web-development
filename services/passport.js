@@ -23,18 +23,13 @@ passport.use(
       callbackURL: "/auth/google/callback",
       proxy: true //heroku uses proxy and by default Strategy does not trust proxy
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOne({googleId: profile.id})
-        .then(user => {
-          if (user) {
-            //first param is to error messages and the second is the user record
-            done(null, user);
-          } else {
-            new User({ googleId: profile.id })
-              .save()
-              .then(user => done(null, user));
-          }
-        })
+    async (accessToken, refreshToken, profile, done) => {
+      let user = await User.findOne({googleId: profile.id});
+      if (!user) {
+        user = await new User({ googleId: profile.id }).save()
+      } 
+      //first param is to error messages and the second is the user record
+      done(null, user);
     }
   )
 );
