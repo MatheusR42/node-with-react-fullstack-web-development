@@ -7,12 +7,9 @@ import Header from './Header';
 import Landing from './Landing';
 import PageNotFound from './PageNotFound';
 import Thanks from './Thanks';
+import DashBoard from './DashBoard';
 
-import axios from 'axios';
-window.axios = axios;
-const DashBoard = () => <div>DashBoard</div>;
 const SurveyNew = () => <div>SurveyNew</div>;
-
 
 class App extends Component {
     componentDidMount() {
