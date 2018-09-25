@@ -6,7 +6,8 @@ import * as actions from '../actions'
 import Header from './Header';
 import Landing from './Landing';
 import PageNotFound from './PageNotFound';
-
+import axios from 'axios';
+window.axios = axios;
 const DashBoard = () => <div>DashBoard</div>;
 const SurveyNew = () => <div>SurveyNew</div>;
 
