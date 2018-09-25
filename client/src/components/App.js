@@ -6,6 +6,8 @@ import * as actions from '../actions'
 import Header from './Header';
 import Landing from './Landing';
 import PageNotFound from './PageNotFound';
+import Thanks from './Thanks';
+
 import axios from 'axios';
 window.axios = axios;
 const DashBoard = () => <div>DashBoard</div>;
@@ -27,6 +29,7 @@ class App extends Component {
                             <Route path="/" exact component={Landing} />
                             <Route path="/surveys" exact component={DashBoard} />
                             <Route path="/surveys/new" exact component={SurveyNew} />
+                            <Route path="/thanks" exact component={Thanks} />
                             <Route component={PageNotFound} />
                         </Switch>
                     </div>
