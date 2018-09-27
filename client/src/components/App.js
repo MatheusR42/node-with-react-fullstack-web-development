@@ -8,8 +8,7 @@ import Landing from './Landing';
 import PageNotFound from './PageNotFound';
 import Thanks from './Thanks';
 import DashBoard from './DashBoard';
-
-const SurveyNew = () => <div>SurveyNew</div>;
+import SurveyNew from './surveys/SurveyNew'
 
 class App extends Component {
     componentDidMount() {
