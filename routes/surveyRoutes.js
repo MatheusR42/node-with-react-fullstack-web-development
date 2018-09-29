@@ -26,7 +26,7 @@ module.exports = app => {
                 return { email: email.trim() }
             }),
             _user: req.user.id,
-            sendDate: Date.now()
+            dateSend: Date.now()
         })
 
         const mailer = new Mailer(survey, surveyTemplate(survey));
