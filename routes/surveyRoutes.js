@@ -1,3 +1,6 @@
+const _ = require('lodash');
+const { URL } = require('url');
+const Path = require('path-parser').default;
 const moongose = require('mongoose');
 const requireLogin = require('../middlewares/requireLogin');
 const requireCredits = require('../middlewares/requireCredits');
@@ -34,8 +37,38 @@ module.exports = app => {
     });
 
     app.post('/api/surveys/webhooks', (req, res) => {
-        console.log(req.body);
+        console.log('webhook')
+        _.chain(req.body)
+            .map(event => {
+                const pathname = new URL(event.url).pathname;
+                const p = new Path('/surveys/:surveyId/:choice');
+                const match = p.test(pathname);
+                if (match) {
+                    return {
+                        email: event.email,
+                        surveyId: match.surveyId,
+                        choice: match.choice
+                    };
+                }
+            })
+            .compact()
+            .uniqBy('email', 'surveyId')
+            .each(({ surveyId, email, choice }) => {
+                //this is async, but we can leave that way cause sendgrid does
+                // not expect some response
+                Survey.updateOne({
+                    _id: surveyId,
+                    recipients: {
+                        $elemMatch: { email: email, responded: false },
+                    }
+                }, {
+                    $inc: { [choice]: 1 },
+                    $set: { 'recipients.$.responded': true },
+                    lastResponded: new Date()
+                }).exec();
+            })
+            .value();
 
         res.send({})
-    })
+    });
 }

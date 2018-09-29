@@ -26,5 +26,5 @@ class SurveyNew extends Component {
 }
 
 export default reduxForm({
-    form: 'surveyForm' //this will clear all the SuveyForm data when this component is destroyed
+    form: 'surveyForm' //this will clear all the SurveyForm data when this component is destroyed
 })(SurveyNew);

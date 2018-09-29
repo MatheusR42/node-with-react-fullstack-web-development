@@ -8,10 +8,10 @@ module.exports = (survey) => {
                     <h3>Hi!</h3>
                     <p>${survey.body}</p>
                     <div>
-                        <a href="${keys.domain}/thanks">Yes</a>
+                        <a href="${keys.domain}/surveys/${survey.id}/yes">Yes</a>
                     </div>
                     <div>
-                        <a href="${keys.domain}/thanks">No</a>
+                        <a href="${keys.domain}/surveys/${survey.id}/no">No</a>
                     </div>
                 </div>
             </body>
