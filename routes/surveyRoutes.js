@@ -9,6 +9,13 @@ const surveyTemplate = require('../services/emailTemplate/surveyTemplate');
 const Survey = moongose.model('surveys');
 
 module.exports = app => {
+    app.get('/api/surveys', requireLogin, async (req, res) => {
+        const recipients = await Survey.find({ _user: req.user.id })
+            .select( { recipients: false });
+
+        res.send(recipients);
+    });
+
     app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
         const { title, subject, body, recipients } = req.body;
         const survey = new Survey({
